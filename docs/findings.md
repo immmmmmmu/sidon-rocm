@@ -1,6 +1,6 @@
 # Findings: Sidon on Windows ROCm (gfx1151)
 
-Measurements from one machine (GMKtec EVO-X2, Ryzen AI Max+ 395 / Radeon 8060S gfx1151, Windows 11 25H2, driver 32.0.32015.7029, PyTorch 2.9.1+rocm7.2.1), 2026-10-22 to 2026-10-23. Inputs were Japanese single-speaker recordings cut from one longer recording. GPU results were always compared with the same pipeline run on CPU using the `*_cpu.pt` TorchScript files.
+Measurements from one machine (GMKtec EVO-X2, Ryzen AI Max+ 395 / Radeon 8060S gfx1151, Windows 11 25H2, driver 32.0.32015.7029 as reported by Windows, PyTorch 2.9.1+rocm7.2.1), 2026-10-22 to 2026-10-23. Inputs were Japanese single-speaker recordings cut from one longer recording. GPU results were always compared with the same pipeline run on CPU using the `*_cpu.pt` TorchScript files.
 
 ## 1. Pipeline
 
@@ -42,6 +42,8 @@ Profiling a warm 10 s chunk showed 96% of decoder GPU time in `aten::miopen_conv
 | MIOpen with `torch.backends.cudnn.benchmark = True` | 19.9 s |
 | `torch.backends.cudnn.enabled = False` (PyTorch native convolutions) | 2.8 s |
 
+That is about 7× faster when warm. On the first run in a fresh process (table below, 10 s chunks) the gain is about 6× (330.7 s → 52.5 s).
+
 With native convolutions (`--conv-backend native`), the demo's 96 s chunks no longer caused driver resets:
 
 | Run (fresh process) | Chunks | Convolutions | GPU inference | vs CPU | Driver resets |
@@ -52,7 +54,7 @@ With native convolutions (`--conv-backend native`), the demo's 96 s chunks no lo
 | 60 s | 96 s | native | 8.4 s | 0.9999999998 | no |
 | 10 min | 96 s | native | 87.5 s | 0.9999999997 | no |
 
-The 10-minute run peaked at about 10.1 GB of GPU memory. Repeating it in one process took 87.0 s, 57.2 s, then 33.9 s, with identical output. At the six 96 s chunk joins, the sample-to-sample difference was at most 2% of the file's 99.99th percentile, so no discontinuities were detected (a numeric check, not a listening test).
+The 10-minute run peaked at about 10.1 GB of GPU memory. Repeating it in one process took 87.0 s, 57.2 s, then 33.9 s, with identical output. At the six 96 s chunk joins, the sample-to-sample difference was at most 2% of the file's 99.99th percentile, so no discontinuities were detected (a numeric check).
 
 ## 4. Smaller Windows ROCm quirks
 
@@ -64,4 +66,4 @@ The 10-minute run peaked at about 10.1 GB of GPU memory. Repeating it in one pro
 
 - Other AMD GPUs, other drivers, other ROCm versions (ROCm 10.1.0 lists Windows PyTorch 2.14.0, untested here).
 - Out-of-memory and missing-GPU failures on real hardware.
-- Formal quality evaluation (for example ASR error rates). Quality was only checked by listening to 10–60 s clips.
+- Formal quality evaluation (for example ASR error rates).

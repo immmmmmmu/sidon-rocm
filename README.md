@@ -10,7 +10,7 @@ Run the [Sidon](https://github.com/sarulab-speech/Sidon) speech restoration mode
 
 - Restores a speech recording with the published TorchScript model [`sarulab-speech/sidon-v0.1`](https://huggingface.co/sarulab-speech/sidon-v0.1), following the official demo's [`app.py`](https://huggingface.co/spaces/sarulab-speech/sidon_demo_beta/blob/cc6ac8f4b41c16a81d2a6984f8de1c4919a6c150/app.py) pipeline (16 kHz input features, 48 kHz mono output, 96 s chunks).
 - Pins every model file by revision and sha256 and checks them before each run.
-- Runs the decoder convolutions without MIOpen by default, which on the tested machine is about 7× faster and avoids Windows GPU timeouts (see [docs/findings.md](docs/findings.md)).
+- Runs the decoder convolutions without MIOpen by default, which on the tested machine made the GPU run about 6–7× faster (depending on warm-up) and avoids Windows GPU timeouts (see [docs/findings.md](docs/findings.md)).
 - Never overwrites the input or an existing output, never silently falls back to CPU, and refuses to write output that contains NaN/Inf.
 
 ## Tested environment
@@ -21,7 +21,7 @@ Only this combination has been tested. Other AMD GPUs supported by AMD's Windows
 | --- | --- |
 | Machine | GMKtec EVO-X2, Ryzen AI Max+ 395, Radeon 8060S (gfx1151), 128 GB (64 GB assigned to the GPU in BIOS) |
 | OS | Windows 11 Pro 25H2 (build 26200) |
-| GPU driver | 32.0.32015.7029 |
+| GPU driver | 32.0.32015.7029 (as reported by Windows) |
 | Python | 3.12.10 |
 | PyTorch | 2.9.1+rocm7.2.1 (AMD Windows wheels), torchaudio 2.9.1, ROCm 7.2.1 |
 | Preprocessing | transformers 4.53.3, huggingface-hub 0.34.0, tokenizers 0.21.2 (same as the official demo's lock file) |
@@ -97,7 +97,7 @@ Japanese speech, `--conv-backend native`, 96 s chunks. Times are inference time 
 | 60 s | 8.4 s | 69.3 s | 0.9999999998 |
 | 10 min | 87.5 s (RTF 0.146) | 741.0 s | 0.9999999997 |
 
-Repeating the 10-minute run in the same process took 57.2 s and then 33.9 s (RTF 0.056). Peak GPU allocation was about 10.1 GB for 10 minutes of audio. Restored 10–60 s clips were checked by listening; this is a subjective check, not a formal quality evaluation.
+Repeating the 10-minute run in the same process took 57.2 s and then 33.9 s (RTF 0.056). Peak GPU allocation was about 10.1 GB for 10 minutes of audio.
 
 ## Known issues
 
@@ -111,7 +111,7 @@ Details and measurements: [docs/findings.md](docs/findings.md).
 ## Licenses and credits
 
 - This repository: MIT ([LICENSE](LICENSE)).
-- Sidon by Wataru Nakata and Yuki Saito (SaruLab): code under MIT ([repository](https://github.com/sarulab-speech/Sidon)); the `sidon-v0.1` model is published under MIT ([model card](https://huggingface.co/sarulab-speech/sidon-v0.1)). Paper: [arXiv:2509.17052](https://arxiv.org/abs/2509.17052).
+- Sidon by [sarulab-speech](https://github.com/sarulab-speech) ([@Wataru-Nakata](https://github.com/Wataru-Nakata) and co-authors): code under MIT ([repository](https://github.com/sarulab-speech/Sidon)); the `sidon-v0.1` model is published under MIT ([model card](https://huggingface.co/sarulab-speech/sidon-v0.1)). Paper: [arXiv:2509.17052](https://arxiv.org/abs/2509.17052).
 - Preprocessing configuration from [`facebook/w2v-bert-2.0`](https://huggingface.co/facebook/w2v-bert-2.0) (MIT).
 - PyTorch and ROCm wheels are provided by AMD under their own licenses and are not redistributed here. Model files are downloaded from Hugging Face by `fetch-models`, not included in this repository.
 

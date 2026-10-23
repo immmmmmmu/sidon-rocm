@@ -10,12 +10,12 @@
 
 - 公開 TorchScript [`sarulab-speech/sidon-v0.1`](https://huggingface.co/sarulab-speech/sidon-v0.1) で、公式デモ `app.py` と同じ手順で音声を復元します（出力は 48kHz モノラル）。
 - モデルファイルを revision と sha256 で固定し、毎回照合します。
-- 既定で MIOpen を使わない畳み込みにします。確認した機種では約7倍速く、Windows の GPU タイムアウト（ドライバーのリセット）も起きませんでした。
+- 既定で MIOpen を使わない畳み込みにします。確認した機種では GPU の処理が約6〜7倍速くなり（初回か2回目以降かで変わります）、Windows の GPU タイムアウト（ドライバーのリセット）も起きませんでした。
 - 入力や既存の出力を上書きしません。GPU で失敗しても CPU に切り替えません。NaN を含む出力は書き出しません。
 
 ## 確認した環境
 
-GMKtec EVO-X2（Ryzen AI Max+ 395 / Radeon 8060S、gfx1151）、Windows 11 Pro 25H2、ドライバー 32.0.32015.7029、Python 3.12.10、PyTorch 2.9.1+rocm7.2.1。ほかの環境は未確認です。
+GMKtec EVO-X2（Ryzen AI Max+ 395 / Radeon 8060S、gfx1151）、Windows 11 Pro 25H2、ドライバー 32.0.32015.7029（Windows が報告する版）、Python 3.12.10、PyTorch 2.9.1+rocm7.2.1。ほかの環境は未確認です。
 
 ## 導入と使い方
 
@@ -39,8 +39,6 @@ GMKtec EVO-X2（Ryzen AI Max+ 395 / Radeon 8060S、gfx1151）、Windows 11 Pro 2
 | --- | --- | --- | --- |
 | 60秒 | 8.4秒 | 69.3秒 | 0.9999999998 |
 | 10分 | 87.5秒 | 741.0秒 | 0.9999999997 |
-
-10〜60秒の出力は試聴で確認しました（主観評価です）。
 
 ## ライセンス
 
