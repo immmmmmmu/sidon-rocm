@@ -1,8 +1,10 @@
-# sidon-rocm-windows
+# sidon-rocm
 
 音声復元モデル [Sidon](https://github.com/sarulab-speech/Sidon) を、**Windows ネイティブの ROCm** で AMD GPU 上に動かすための非公式ツールです（WSL・CUDA は使いません）。
 
 > **非公式です。** Sidon の作者や AMD とは関係ありません。2026年10月時点で、Sidon にも AMD にも Windows の AMD GPU で Sidon を動かす公式手順はありません。このリポジトリは公開済みの単一話者モデルを固定し、Windows ROCm で正しく速く動かすための回避策を加えたものです。
+>
+> **無保証・サポートなし（as is）です。** 動作を確認したのは下記の1台だけです。質問への回答、不具合の修正、新しい ROCm への追従は約束しません。他の機種での動作報告は歓迎します。
 
 英語版の詳しい説明は [README.md](README.md)、技術的な調査結果は [docs/findings.md](docs/findings.md) にあります。
 

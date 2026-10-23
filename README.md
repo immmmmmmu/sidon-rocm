@@ -1,8 +1,10 @@
-# sidon-rocm-windows
+# sidon-rocm
 
 Run the [Sidon](https://github.com/sarulab-speech/Sidon) speech restoration model on an AMD GPU under **native Windows with ROCm** — no WSL, no CUDA.
 
 > **Unofficial.** This project is not affiliated with the Sidon authors or AMD. As of 2026-10, neither Sidon nor AMD documents a Windows AMD GPU setup for Sidon. This repository pins the published single-speaker model and adds the workarounds needed to make it run correctly and fast on Windows ROCm.
+>
+> **Provided as is, without support.** It has been verified on one machine only (see below). There is no promise to answer issues, fix problems or keep up with new ROCm releases. Reports from other hardware are welcome.
 
 日本語の説明は [README.ja.md](README.ja.md) にあります。
 
@@ -31,8 +33,8 @@ Only this combination has been tested. Other AMD GPUs supported by AMD's Windows
 1. Create an isolated venv (Python 3.12 is required by AMD's wheels):
 
    ```powershell
-   git clone <this repository>
-   cd sidon-rocm-windows
+   git clone https://github.com/immmmmmmu/sidon-rocm.git
+   cd sidon-rocm
    .\scripts\bootstrap.ps1
    $Py = '.\.venv\Scripts\python.exe'
    ```
