@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sidon-rocm-windows"
+version = "0.1.0"
+description = "Unofficial runner for the Sidon speech restoration model on AMD GPUs with Windows ROCm"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.12,<3.13"
+# torch/torchaudio come from AMD's Windows ROCm wheels and the preprocessing deps
+# from config/constraints-rocm.txt; see README. Nothing is pulled in here.
+dependencies = []
+
+[project.scripts]
+sidon-rocm = "sidon_rocm_windows.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

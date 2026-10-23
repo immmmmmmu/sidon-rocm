@@ -1,0 +1,51 @@
+{
+  "status": "pinned_downloaded_hash_verified",
+  "inspected_on": "2026-10-22",
+  "model": {
+    "family": "Sidon single-speaker",
+    "repository": "https://huggingface.co/sarulab-speech/sidon-v0.1",
+    "model_id": "sarulab-speech/sidon-v0.1",
+    "revision": "b3b02d8bbd55fdbc410e6e46e76ef95ace4fbf52",
+    "license": "mit",
+    "files": {
+      "feature_extractor_cpu.pt": {
+        "size": 795498929,
+        "sha256": "fd9abc906a9048b3c047bd3d246a25f6485d09c2d6bb85e098f527f844efc019"
+      },
+      "feature_extractor_cuda.pt": {
+        "size": 795490336,
+        "sha256": "c3739c332da4ce00cc9019a328bcb19ee8f863ac5eb0b52386672772aab836ce"
+      },
+      "decoder_cpu.pt": {
+        "size": 209824877,
+        "sha256": "34dcc80fab75bd1336369ba5b2063f6da475887aa824db94b495c4059c5fdea4"
+      },
+      "decoder_cuda.pt": {
+        "size": 209825094,
+        "sha256": "a789c71f54ca7db4b28becdc87c5e8b9260cb568cca462d502c54900db74a1cc"
+      }
+    }
+  },
+  "preprocessor": {
+    "model_id": "facebook/w2v-bert-2.0",
+    "revision": "da985ba0987f70aaeb84a80f2851cfac8c697a7b",
+    "license": "mit",
+    "class": "transformers.SeamlessM4TFeatureExtractor",
+    "files": {
+      "preprocessor_config.json": {
+        "size": 275,
+        "sha256": "8e6281aad64f97e40534135a59dcc5d33571efae376f2a25adf5551951897ab4"
+      }
+    }
+  },
+  "inference_reference": {
+    "repository": "https://huggingface.co/spaces/sarulab-speech/sidon_demo_beta",
+    "revision": "cc6ac8f4b41c16a81d2a6984f8de1c4919a6c150",
+    "file": "app.py"
+  },
+  "upstream_code": {
+    "repository": "https://github.com/sarulab-speech/Sidon",
+    "inspected_commit": "ae03f66c5e86dcb23bc707b2db186ce52c97406e",
+    "used": false
+  }
+}

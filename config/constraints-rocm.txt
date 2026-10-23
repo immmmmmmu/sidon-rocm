@@ -1,0 +1,9 @@
+# AMD native Windows baseline; not a full Sidon dependency lock.
+torch==2.9.1+rocm7.2.1
+torchaudio==2.9.1+rocm7.2.1
+torchvision==0.24.1+rocm7.2.1
+rocm==7.2.1
+# Preprocessing deps, pinned to the sidon_demo_beta uv.lock (Space revision cc6ac8f4).
+transformers==4.53.3
+huggingface-hub==0.34.0
+tokenizers==0.21.2
